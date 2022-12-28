@@ -27,16 +27,14 @@
 //----------------------------------------
 #include "Keyboard.h"
 
-#include "GyverButton.h"
-GButton btn1(BTN_1);
-GButton btn2(BTN_2);
-GButton btn3(BTN_3);
-GButton gas1(GAS_1);
-GButton gas2(GAS_2);
-
-#include "GyverEncoder.h"
-Encoder first(NULL, DT1, SW1);
-Encoder second(NULL, DT2, SW2);
+#include "EncButton2.h"
+EncButton2<EB_BTN> btn1(INPUT, BTN_1);
+EncButton2<EB_BTN> btn2(INPUT, BTN_2);
+EncButton2<EB_BTN> btn3(INPUT, BTN_3);
+EncButton2<EB_BTN> gas1(INPUT, GAS_1);
+EncButton2<EB_BTN> gas2(INPUT, GAS_1);
+EncButton2<EB_ENC> first(INPUT, DT1, SW1);
+EncButton2<EB_ENC> second(INPUT, DT2, SW2);
 //=========================================
 void setup() {
   Keyboard.begin();
@@ -57,17 +55,17 @@ void loop(){
 //=======================================================
 
 //-----------------------wheel---------------------------
-  if(first.isRight()) Keyboard.print(KEY_RIGHT_ARROW);
-  if(first.isLeft()) Keyboard.print(KEY_LEFT_ARROW);
-  if(second.isRight()) Keyboard.print('a');
-  if(second.isLeft()) Keyboard.print('d');
+  if(first.right()) Keyboard.print(KEY_RIGHT_ARROW);
+  if(first.left()) Keyboard.print(KEY_LEFT_ARROW);
+  if(second.right()) Keyboard.print('a');
+  if(second.left()) Keyboard.print('d');
 //----------------------pedals---------------------------
-  if(gas1.isHold()) Keyboard.print(KEY_UP_ARROW);
-  if(gas2.isHold()) Keyboard.print('w');
+  if(gas1.hold()) Keyboard.print(KEY_UP_ARROW);
+  if(gas2.hold()) Keyboard.print('w');
 //-----------------------btns----------------------------
-  if(btn1.isHold()) Keyboard.print('p');
-  if(btn2.isHold()) Keyboard.print('q');
-  if(btn3.isHold()) Keyboard.print('');
+  if(btn1.click()) Keyboard.print('p');
+  if(btn2.click()) Keyboard.print('q');
+  if(btn3.click()) Keyboard.print(' ');
   
 //=======================================================
 }
